@@ -1,7 +1,7 @@
-//alert("123456789".split("").reverse().join(""));
-
-var n=12345679;
-n.split("");
-n.reverse();
-n.join('');
-alert(n)
+/*
+Task:
+Reverse a given number n (123 -> 321). Log the result on console.
+*/
+var n=123456789;
+var line=String(n).split("").reverse().join("");
+console.log("Reverted line is " + line);

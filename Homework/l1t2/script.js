@@ -1,4 +1,7 @@
 /*
+Task:
+Check whether a given number is prime. Log on console true or false.
+
 simple number 107
 composit number 256
 */
