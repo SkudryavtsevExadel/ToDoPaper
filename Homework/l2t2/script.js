@@ -1,27 +1,14 @@
 /*
 Task:
-Check whether a given number is prime. Log on console true or false.
-
-simple number 107
-composit number 256
+The numeric array is given. You should find amount of reps for each element in the array and log it on
+console. For example: for the array [ 1, 2, 1, 2, 3.14, 4, 2, 1] you should log:
+1 - 3, 2 - 3, 3.14 - 1, 4 - 1 (not necessary in this order)
 */
-var n=107;
-if ((n%2===0)&&(n!=2)){
-    console.log(n + ' is the composit number.');// any even number is a composite
-} 
-else if (n===2)//number 2 is simple
-     console.log(n + ' is the simple number.');
-else{ // odd number
-     var k=Math.round(Math.sqrt(n));
-     var flag = false;
-             
-     for(i=2; i<k+1; i++)
-        if(n%i===0){
-          console.log(n + ' is the composit number.');
-          flag = true;
-          break;
-         }
-            
-     if (flag === false)
-       console.log(n + ' is the simple number.');
-}
+
+var arrA = [ 1, 2, 1, 2, 3.14, 4, 2, 1];
+var result = [];
+arrA.forEach(function(a){
+    result[a] = result[a] + 1 || 1;
+});
+for (var key in result)
+   console.log('Number "' + key + '" is repeated ' + result[key] + ' times');

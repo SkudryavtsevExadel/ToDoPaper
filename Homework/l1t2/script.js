@@ -5,6 +5,7 @@ Check whether a given number is prime. Log on console true or false.
 simple number 107
 composit number 256
 */
+
 var n=107;
 if ((n%2===0)&&(n!=2)){
     console.log(n + ' is the composit number.');// any even number is a composite
