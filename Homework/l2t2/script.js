@@ -6,9 +6,17 @@ console. For example: for the array [ 1, 2, 1, 2, 3.14, 4, 2, 1] you should log:
 */
 
 var arrA = [ 1, 2, 1, 2, 3.14, 4, 2, 1];
-var result = [];
+var result = {};
 arrA.forEach(function(a){
-    result[a] = result[a] + 1 || 1;
+    //result[a] = result[a] + 1 || 1;
+    if (result[a]){
+        result[a]++;
+    }else{
+       result[a]=1; 
+    }
 });
-for (var key in result)
-   console.log('Number "' + key + '" is repeated ' + result[key] + ' times');
+//for (var key in result)
+  // console.log('Number "' + key + '" is repeated ' + result[key] + ' times');
+Object.keys(result).forEach(function(key){
+    console.log(key + '-' +result[key]);
+})

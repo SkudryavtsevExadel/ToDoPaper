@@ -1,29 +1,55 @@
-function addTodoItem(todoItem: object){
-    todoItem : { 
-        text: string,
-        completed: boolean, 
-        id: number 
+function addTodoItem(todoItem){
+    if(todoItem.text === ''){
+        return 'Text field is empty';
     }
     
-    return
+    if(!todoItem.text || !todoItem.completed || !todoItem.id){
+        return 'Not all fields are present';
+    }
+    
+    todoItems.forEach(function(item){
+        if (item.id === todoItem.id){
+            return 'Id is not unique';
+        }            
+    })
+    
+    todoItems.push(todoItem);
+    return true;
 }
 
-function viewTodoList(itemsType: string){
-   
-    return
+function viewTodoList(itemsType)
+    var arrayTodoList = [];
+    todoItems.forEach(function(item){
+        if (itemsType === 'completed'){
+            if (itme.completed === true){
+                //push localal array
+                arrayTodoList.push(item);
+            }
+        }
+        if (itemsType === 'not_completed'){
+            if (itme.completed === false){
+                //push localal array
+                arrayTodoList.push(item);
+            }
+        }
+        if (itemsType === 'all'){
+            arrayTodoList.push(item);
+        }        
+
+    return arrayTodoList;
 }
 
-function editTodoItem(todoItemId: number, newText: string){
+function editTodoItem(todoItemId, newText){
     
     return    
 }
 
-function deleteTodoItem(todoItemId: number){
+function deleteTodoItem(todoItemId){
     
     return
 }
 
-function completeTodoItem(todoItemId: number){
+function completeTodoItem(todoItemId){
     
     return
 }
