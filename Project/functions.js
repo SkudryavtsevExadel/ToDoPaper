@@ -17,7 +17,7 @@ function addTodoItem(todoItem){
     return true;
 }
 
-function viewTodoList(itemsType)
+function viewTodoList(itemsType){
     var arrayTodoList = [];
     todoItems.forEach(function(item){
         if (itemsType === 'completed'){
@@ -34,22 +34,47 @@ function viewTodoList(itemsType)
         }
         if (itemsType === 'all'){
             arrayTodoList.push(item);
-        }        
+        }
+    });
 
     return arrayTodoList;
 }
+                      
 
-function editTodoItem(todoItemId, newText){
+function editTodoItem(addTodoItemId, newText){
     
-    return    
+    if (!newText){
+        return false;
+    }
+    var targetItem = todoItems.find(function(item) {
+        return item.id === addTodoItemId;
+    });
+    
+    if (targetItem !== null){
+        targetItem.text = newText;
+        return true;
+    }    
+    return false;
 }
 
 function deleteTodoItem(todoItemId){
-    
-    return
+    var index = todoItems.findIndex(function(item) {
+        return item.id === todoItemId;
+    });
+    if (index !== -1){
+        todoItems.splice(index, 1);
+        return true;
+    }
+    return false;
 }
 
 function completeTodoItem(todoItemId){
-    
-    return
+    var targetItem = todoItems.find(function(item) {
+        return item.id === todoItemId;
+    });
+    if (targetItem !== null){
+        targetItem.completed = true;
+        return true;
+    }
+    return false;
 }

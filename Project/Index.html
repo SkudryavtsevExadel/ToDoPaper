@@ -8,8 +8,16 @@
     <meta name="description" content="Inade file with code of main project">
     <meta name="author" content="Sergey Kudryavtsev">
     </head>
-    <body></body>
+    <body>
+        <script src="script.js"></script>
+        <script src="functions.js"></script>
     
-    <script src="functions.js"></script>
-    <script src="script.js"></script>
+        <script>
+            console.log(JSON.parse(JSON.stringify(todoItems)));
+            //deleteTodoItem(2);
+            //completeTodoItem(2);
+            editTodoItem(3, 'New text testing');
+            console.log(todoItems)
+        </script> 
+    </body>
 </html>
