@@ -11,3 +11,4 @@ var intodoItems = function() {
 			todoItems = data.data;
 		});
 	};
+console.log(todoItems);
