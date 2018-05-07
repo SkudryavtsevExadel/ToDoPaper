@@ -1,43 +1,37 @@
 function addTodoItem(todoItem){
+    if(!todoItem){
+        throw 'Item is empty';
+        //return false;
+    }
+    
     if(todoItem.text === ''){
-        return 'Text field is empty';
+        throw 'Text field is empty';
     }
     
-    if(!todoItem.text || !todoItem.completed || !todoItem.id){
-        return 'Not all fields are present';
+    if(!todoItem.text || typeof todoItem.completed !== 'boolean' || !todoItem.id){
+        throw 'Not all fields are present';
     }
     
-    todoItems.forEach(function(item){
-        if (item.id === todoItem.id){
-            return 'Id is not unique';
-        }            
-    })
-    
+    const isNotUniqe = todoItems.some((item) => (item.id === todoItem.id));
+    if (isNotUniqe) {
+        console.error('Id is not unique');
+        return false;
+    }    
     todoItems.push(todoItem);
     return true;
 }
 
-function viewTodoList(itemsType){
-    var arrayTodoList = [];
-    todoItems.forEach(function(item){
-        if (itemsType === 'completed'){
-            if (itme.completed === true){
-                //push localal array
-                arrayTodoList.push(item);
-            }
-        }
-        if (itemsType === 'not_completed'){
-            if (itme.completed === false){
-                //push localal array
-                arrayTodoList.push(item);
-            }
-        }
-        if (itemsType === 'all'){
-            arrayTodoList.push(item);
+function viewTodoList(itemsType = 'all'){
+    return todoItems.filter((item) => {
+        switch (itemsType){
+            case 'completed': 
+                return item.completed;
+            case 'not_completed':
+                return !item.completed;
+            case 'all':
+                return true;
         }
     });
-
-    return arrayTodoList;
 }
                       
 
@@ -46,11 +40,9 @@ function editTodoItem(addTodoItemId, newText){
     if (!newText){
         return false;
     }
-    var targetItem = todoItems.find(function(item) {
-        return item.id === addTodoItemId;
-    });
+    const targetItem = todoItems.find((item) => (item.id === addTodoItemId));
     
-    if (targetItem !== null){
+    if (targetItem){
         targetItem.text = newText;
         return true;
     }    
@@ -58,9 +50,7 @@ function editTodoItem(addTodoItemId, newText){
 }
 
 function deleteTodoItem(todoItemId){
-    var index = todoItems.findIndex(function(item) {
-        return item.id === todoItemId;
-    });
+    const index = todoItems.findIndex((item) => (item.id === todoItemId));
     if (index !== -1){
         todoItems.splice(index, 1);
         return true;
@@ -69,9 +59,7 @@ function deleteTodoItem(todoItemId){
 }
 
 function completeTodoItem(todoItemId){
-    var targetItem = todoItems.find(function(item) {
-        return item.id === todoItemId;
-    });
+    const targetItem = todoItems.find((item) => (item.id === todoItemId));
     if (targetItem !== null){
         targetItem.completed = true;
         return true;
