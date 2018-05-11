@@ -4,19 +4,28 @@ function addTodoItemDom(todoItem){
 	}
 }
 
+function clearUI(){
+    const container = document.getElementById("todo-items");
+    const items = container.querySelectorAll('.todo');
+    [].forEach.call(items, (item)=>{
+        container.removeChild(item);
+    });
+}
+
 function viewTodoListDom(itemsType) {
-	document.getElementById("todo-items").innerHTML= "";
-	if(viewTodoList(itemsType)){
-		let todoList = viewTodoList(itemsType);
-		for(let i =0; i < todoList.length; i++){
-            document.getElementById("todo-items").appendChild(createTodoList(todoList[i]));
-		}
-	}
+	clearUI();
+    const container = document.getElementById("todo-items");
+    let todoList = viewTodoList(itemsType);
+    todoList
+        .map((item) => createTodoList(item))
+        .forEach((todoItem) =>{
+            container.appendChild(todoItem);
+        });
 }
 
 function editTodoItemDom(addTodoItemId, newText) {
 		if(editTodoItem(addTodoItemId, newText)) {
-            document.getElementById(addTodoItemId).getElementsByClassName("textToDo")[0].innerHTML = newText;	
+            document.getElementById('item-'+addTodoItemId).querySelector(".textToDo").innerHTML = newText;	
 		}
 		else {
 			alert(`It is impossible to edit todoItem with ID = ${addTodoItemId}`);
@@ -25,7 +34,8 @@ function editTodoItemDom(addTodoItemId, newText) {
 
 function deleteTodoItemDom(todoItemId){
 		if(deleteTodoItem(todoItemId)){
-            $('#todoItemId').remove();
+            const item = document.querySelector(`#item-${todoItemId}`);
+            item.parentNode.removeChild(item);
 		}
 		else{
 			alert(`ToDoIem with id =${todoItemId} is absent!`);
@@ -33,38 +43,18 @@ function deleteTodoItemDom(todoItemId){
 }
 
 function createTodoList(todoItem){
-	let array = document.createElement('array');
-    array.className="todo";
-    array.id = todoItem.id;
-	let todoAtHtml;
+	let row = document.createElement('tr');
+    row.className="todo";
+    row.id = 'item-' + todoItem.id;
 	if (todoItem.completed===true){
-		todoAtHtml = `
-        <table border="1">
-            <tr>
-                <th>Id</th>
-                <th>Text</th>
-                <th>Completed</th>
-            </tr>
-            <tr>
+		row.innerHTML = `
                 <td><p>${todoItem.id}</p></td><td><p class = "textToDo"> ${todoItem.text}</p></td><td><input type = "checkbox" checked></td>
-            </tr>
-        </table>`;
+        `;
 	}
 	else{
-		todoAtHtml = `
-<table border="1">
-            <tr>
-                <th>Id</th>
-                <th>Text</th>
-                <th>Completed</th>
-            </tr>
-            <tr>
-                <td><p>${todoItem.id}</p></td><td><p class = "textToDo"> ${todoItem.text}</p></td><td><input type = "checkbox" ></td>
-            </tr>
-        </table>
-`;
+		row.innerHTML = `
+                <td><p>${todoItem.id}</p></td><td><p class = "textToDo"> ${todoItem.text}</p></td><td><input type = "checkbox" ></td>`;
 	}
-	array.innerHTML = todoAtHtml;
-	return array;
+	return row;
 } // sorry for nasty UI - don't have anough time for nice visualization of results
 
