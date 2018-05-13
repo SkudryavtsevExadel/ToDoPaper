@@ -1,6 +1,7 @@
 function addTodoItemDom(todoItem){
-	if(addTodoItem(todoItem)){	
-		document.getElementById("todo-items").appendChild(createTodoList(todoItem));
+	const checkedItem = addTodoItem(todoItem);
+    if(checkedItem){	
+		document.getElementById("todo-items").appendChild(createTodoList(checkedItem));
 	}
 }
 
@@ -46,15 +47,11 @@ function createTodoList(todoItem){
 	let row = document.createElement('tr');
     row.className="todo";
     row.id = 'item-' + todoItem.id;
-	if (todoItem.completed===true){
-		row.innerHTML = `
-                <td><p>${todoItem.id}</p></td><td><p class = "textToDo"> ${todoItem.text}</p></td><td><input type = "checkbox" checked></td>
+    row.innerHTML = `
+        <td><p>${todoItem.id}</p></td>
+        <td><p class = "textToDo"> ${todoItem.text}</p></td>
+        <td><input type = "checkbox" class="cb" ${todoItem.completed? 'checked':''}></td>
+        <td><button class="edit">Edit</button> <button class="delete">Del</button></td>
         `;
-	}
-	else{
-		row.innerHTML = `
-                <td><p>${todoItem.id}</p></td><td><p class = "textToDo"> ${todoItem.text}</p></td><td><input type = "checkbox" ></td>`;
-	}
 	return row;
-} // sorry for nasty UI - don't have anough time for nice visualization of results
-
+}

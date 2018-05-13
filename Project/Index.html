@@ -9,16 +9,31 @@
     <meta name="author" content="Sergey Kudryavtsev">
     </head>
     <body>
+        <form style="margin-bottom: 10px" id="formRadio">
+            <label><input type="radio" value="completed" name="filterRadio">Completed</label>
+            <label><input type="radio" value="not_completed" name="filterRadio">Not completed</label>
+            <label><input type="radio" value="all" name="filterRadio" checked>All items</label>
+        </form>
+        
         <table id="todo-items" border="1">
             <tr>
                 <th>Id</th>
                 <th>Text</th>
                 <th>Completed</th>
+                <th>Action</th>
             </tr>
         </table>
+        <form id="editBlock" style="padding: 10px; display: flex">
+            <input type="hidden" name="editId">
+            <textarea name="editField" style="width: 30%" required></textarea>
+            <button type="submit">Add/Edit</button>
+            <button type="reset">Reset</button>
+        </form>
+              
+        
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="dom.js"></script>
-        <script src="script.js"></script>
         <script src="functions.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>

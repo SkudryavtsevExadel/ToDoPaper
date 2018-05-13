@@ -1,24 +1,20 @@
+let todoItems = [];
 function addTodoItem(todoItem){
     if(!todoItem){
         throw 'Item is empty';
         //return false;
     }
     
-    if(todoItem.text === ''){
+    if(!todoItem.text){
         throw 'Text field is empty';
     }
     
-    if(!todoItem.text || typeof todoItem.completed !== 'boolean' || !todoItem.id){
-        throw 'Not all fields are present';
+    if(!todoItem.id){
+        todoItem.id = Math.max(0,...todoItems.map(item=>item.id + 1));
     }
-    
-    const isNotUniqe = todoItems.some((item) => (item.id === todoItem.id));
-    if (isNotUniqe) {
-        console.error('Id is not unique');
-        return false;
-    }    
+        
     todoItems.push(todoItem);
-    return true;
+    return todoItem;
 }
 
 function viewTodoList(itemsType = 'all'){
@@ -34,7 +30,6 @@ function viewTodoList(itemsType = 'all'){
     });
 }
                       
-
 function editTodoItem(addTodoItemId, newText){
     
     if (!newText){
@@ -58,11 +53,15 @@ function deleteTodoItem(todoItemId){
     return false;
 }
 
-function completeTodoItem(todoItemId){
+function completeTodoItem(todoItemId, completed=true){
     const targetItem = todoItems.find((item) => (item.id === todoItemId));
     if (targetItem !== null){
-        targetItem.completed = true;
+        targetItem.completed = completed;
         return true;
     }
     return false;
+}
+
+function getTodoItem(todoItemId){
+    return todoItems.find((item) => (item.id === todoItemId));
 }
